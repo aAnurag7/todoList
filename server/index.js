@@ -1,18 +1,26 @@
-const { MongoClient } =require('mongodb');
+const express = require('express');
+const User = require('./model/userSchema')
+const app = express();
+app.use(express.json())
 
-let uri = 'mongodb+srv://anurag:anuragchatur@cluster0.r9fqxa8.mongodb.net/?retryWrites=true&w=majority'
-const client = new MongoClient(uri);
-
-async function getdata(){
-    let result = await client.connect();
-    let db = result.db('anurag');
-    return db.collection('username')
-}   
-const main = async()=>{
-    let data = await getdata();
-    data = await data.insertMany([{
-        name:'anruag chaturvedi'
-    }])
-    console.log(data);
+let fakedata = {
+    name : "anurag",
+    password: "anurag"
 }
-main();
+app.use(require('./router/auth'))
+
+
+app.post('/user/create',(req,res)=>{
+   let data = req.body
+   console.log(data);
+res.send('ok')
+})
+ 
+app.get('/',(req,res)=>{
+    console.log(req.body)
+    res.send('hello');
+}) 
+  
+app.listen(4000,()=>{
+    console.log('listening to port 6000')
+}) 
