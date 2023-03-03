@@ -1,4 +1,5 @@
 const express = require('express')
+const jwt = require('jsonwebtoken')
 const router = express.Router();
 const bcrypt = require('bcryptjs')
 require('../DB/connection')
@@ -33,6 +34,7 @@ router.post('/create/user', (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
+        let token;
         const { email, password } = req.body;
         if (!email || !password) {
             return res.status(400).json({ error: "plz filled the data" })
@@ -41,6 +43,14 @@ router.post('/login', async (req, res) => {
         console.log(userlogin)
         if (userlogin) {
             const isMatch = await bcrypt.compare(password, userlogin.password);
+           
+           token = await userlogin.generateAuthToken()
+             console.log(token)
+           res.cookie("jwttoken",token,{
+            expires:new Date(Date.now() + 1000*60*60*24),
+            httpOnly:true
+           })
+
             if (!isMatch) {
                 return res.status(400).json({ message: "user error" })
             }
