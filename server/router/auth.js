@@ -4,13 +4,10 @@ const router = express.Router();
 const bcrypt = require('bcryptjs')
 require('../DB/connection')
 const User = require('../model/userSchema');
+const {Board} = require('../model/boardschema');
 const  authenticate  = require('../middleware/authenticate.js');
-const {getdata} =require('./board')
+const {getdata,updataboarddata} =require('./board')
 
-router.get('/users/detail', async (req, res) => {
-    let data = await User.find();
-    res.send(data);
-})
 router.post('/create/user', (req, res) => {
     const { fullname, email, password } = req.body;
     if (!fullname || !email || !password) {
@@ -60,15 +57,25 @@ router.post('/login', async (req, res) => {
         res.status(500).send('server error')
     } 
 })
+
 router.get('/board',authenticate, async(req,res)=>{
 try{
     console.log('welcome to your board')
-    let userdata = await getdata(req)
+    let userdata = await getdata(req,res)
     res.send(userdata);
 } catch(err){
     console.log(err)
     res.status(500).send('server error')
 }
 })
+router.put('/board/:id', (req, res) =>{
+    try{
+        updataboarddata(req,res);
+    } 
+    catch(err){
+        res.status(500).send('server error')
+    }
+    
+});
 
 module.exports = router;   
