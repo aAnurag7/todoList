@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs')
 require('../DB/connection')
 const User = require('../model/userSchema');
 const  authenticate  = require('../middleware/authenticate.js');
+const {getdata} =require('./board')
 
 router.get('/users/detail', async (req, res) => {
     let data = await User.find();
@@ -43,25 +44,31 @@ router.post('/login', async (req, res) => {
         if (userlogin) {
             const isMatch = await bcrypt.compare(password, userlogin.password);
             if (!isMatch) {
-                return res.status(400).json({ message: "user error" })
+                return res.status(401).json({ message: "Unauthorized" })
             }
             else {
                 token = await userlogin.generateAuthToken()
                 res.cookie("jwttoken",token,{
-                    expires:new Date(Date.now() + 25892000000),
+                    expires:new Date(Date.now() + 1000*60*60*24),
                        httpOnly:true
                     })
-                res.json({token})
+                res.json({token}) 
             }
-        } else { return res.status(400).json({ message: "Invalid credentials" }) }
+        } else { return res.status(404).json({ message: "User not found" }) }
     } catch (err) {
         console.log(err)
         res.status(500).send('server error')
-    }
+    } 
 })
-router.get('/board',authenticate,(req,res)=>{
-  console.log('welcome to your board')
-  res.send(req.rootUser);
+router.get('/board',authenticate, async(req,res)=>{
+try{
+    console.log('welcome to your board')
+    let userdata = await getdata(req)
+    res.send(userdata);
+} catch(err){
+    console.log(err)
+    res.status(500).send('server error')
+}
 })
 
-module.exports = router;
+module.exports = router;   

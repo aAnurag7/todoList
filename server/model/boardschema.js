@@ -54,4 +54,4 @@ const boardSchema = new mongoose.Schema({
 
 
 const Board = mongoose.model('board',boardSchema);
-module.exports = User;
+module.exports = Board;
