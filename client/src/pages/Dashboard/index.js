@@ -1,33 +1,4 @@
-// import React from'react'
-// import './App.css';
 
-// import Board from './component/board/Board';
-// import Editable from './component/Editable/Editable';
-
-// function App() {
-//   return (
-//     <div className="app">
-//       <div className='app_navbar'>
-//         <h2>TRELLO</h2>
-//       </div>
-//       <div className='app_outer'>
-//         <div className='app_boards'>
-//           <Board/>
-//           <Board/>
-//           <Board/>
-//           <div className='app_boards_board'>
-//             <Editable
-//             displayClass="app_boards_board_app"
-//             text="Add Board" placeholder="Enter board title"
-//             />
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default App;
 
 import React, { useEffect, useState } from "react";
 import Board from "./DashboardComponents/Board/Board";
@@ -174,33 +145,11 @@ JSON.parse(localStorage.getItem("prac-kanban"))
   };
 
   useEffect(() => {
-    async function set(){
-      fetch(`http://localhost:4000/board/:${ID}`,{
-
-      method: "PUT",
-      headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:4000/board",
-          "Access-Control-Allow-Credentials":true,
-          "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
-          "Access-Control-Max-Age": 86400,
-      },
-      body:JSON.stringify(boards)
-  }).then((d)=>{
-    if(d.status === 200){console.log("board updated")}
-    else{console.log(`${d.status} boarserver errord not updated`)}
-  }).catch((er)=>{console.log(er)})}
     localStorage.setItem("prac-kanban", JSON.stringify(boards));
   }, [boards]);
 
 
   return (
-
-  
-
-
-
-
     <div className="app">
       <div className="app_nav">
         <h1>Welcome to your Board</h1>
@@ -240,3 +189,18 @@ export default Dashboard;
 
 
 
+// fetch(`http://localhost:4000/board/:${ID}`,{
+
+//       method: "PUT",
+//       headers: {
+//           "Content-Type": "application/json",
+//           "Access-Control-Allow-Origin": "http://localhost:4000/board",
+//           "Access-Control-Allow-Credentials":true,
+//           "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+//           "Access-Control-Max-Age": 86400,
+//       },
+//       body:JSON.stringify(boards)
+//   }).then((d)=>{
+//     if(d.status === 200){console.log("board updated")}
+//     else{console.log(`${d.status} boarserver errord not updated`)}
+//   }).catch((er)=>{console.log(er)})
