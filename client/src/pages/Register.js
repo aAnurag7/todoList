@@ -9,19 +9,29 @@ const Register=()=>{
     const [password, setPassword]=useState("")
 
 
-    const checkforregistration = () =>{
+    const checkforregistration = async (e) =>{
+        e.preventDefault();
         let values = {fullname:fullname,email: email, password: password};
-        fetch(`localhost:5000/register`,{
-            method: 'post',
-            headers: 'content-application/json',
-            body: JSON.stringify(values)
+        values = JSON.stringify(values);
+    fetch('http://localhost:4000/create/user',{
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials":true,
+              "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+              "Access-Control-Max-Age": 86400,
+            },
+            body: values
         }).then((res)=>{
-            if(res== 200){
+          console.log(res.status)
+            if(res.status === 201){
                 console.log('register succesfuly')
-                window.location = '/Login'
+                window.location = '/'
             }
             else{
-                alert(`${res.status}`)
+                console.log(res.status)
+                // window.location = '/'
             }
         })
       }
@@ -30,8 +40,8 @@ const Register=()=>{
     <div className='main1'>
         <div className='form1'> 
             <h2>Sign up Here</h2>
-            <input value = {email} onChange={(e)=>setFullname(e.target.value)} type="text" name="fullname" placeholder="Enter Name Here"/>
-            <input value = {fullname} onChange={(e)=>setEmail(e.target.value)} type="email" name="email" placeholder="Enter Email Here"/>
+            <input value = {fullname} onChange={(e)=>setFullname(e.target.value)} type="text" name="fullname" placeholder="Enter Name Here"/>
+            <input value = {email} onChange={(e)=>setEmail(e.target.value)} type="email" name="email" placeholder="Enter Email Here"/>
             <input value = {password} onChange={(e)=>setPassword(e.target.value)} type="password" name="" placeholder="Enter Password Here"/>
             <button className="btnn" onClick={checkforregistration}>Register</button>
             <p className="link"><a href="/">back</a></p>
