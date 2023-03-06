@@ -30,18 +30,43 @@
 // export default App;
 
 import React, { useEffect, useState } from "react";
-
 import Board from "./DashboardComponents/Board/Board";
 
 import "./index.css";
 import Editable from "./DashboardComponents/Editabled/Editable";
 
 
-function Dashboard() {
-  const [boards, setBoards] = useState(
-    JSON.parse(localStorage.getItem("prac-kanban")) || []
-  );
+async function Dashboard() {
+  const [boards, setBoards] = useState([]);
+  fetch('http://localhost:4000/board',{
 
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:4000/board",
+        "Access-Control-Allow-Credentials":true,
+        "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+        "Access-Control-Max-Age": 86400,
+    },
+    body:localStorage.getItem('token')
+}).then((d)=>{
+  if(d.status === 200){
+    return d.json();
+  }
+  else if(d.status === 401){
+    alert(`${d.status} Unauthorized`)
+    return;
+  }
+  else{alert(`${d.status} server error`)
+  return;}
+}).then((dat)=>{
+  if(dat){
+    
+    // setBoards(data.data);
+    console.log(dat);
+  }
+}).catch((er)=>{console.log(er)})
+JSON.parse(localStorage.getItem("prac-kanban"))
   const [targetCard, setTargetCard] = useState({
     bid: "",
     cid: "",
@@ -149,6 +174,22 @@ function Dashboard() {
   };
 
   useEffect(() => {
+    async function set(){
+      fetch(`http://localhost:4000/board/:${ID}`,{
+
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:4000/board",
+          "Access-Control-Allow-Credentials":true,
+          "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+          "Access-Control-Max-Age": 86400,
+      },
+      body:JSON.stringify(boards)
+  }).then((d)=>{
+    if(d.status === 200){console.log("board updated")}
+    else{console.log(`${d.status} boarserver errord not updated`)}
+  }).catch((er)=>{console.log(er)})}
     localStorage.setItem("prac-kanban", JSON.stringify(boards));
   }, [boards]);
 
@@ -162,7 +203,7 @@ function Dashboard() {
 
     <div className="app">
       <div className="app_nav">
-        <h1>Kanban Board</h1>
+        <h1>Welcome to your Board</h1>
       </div>
       <div className="app_boards_container">
         <div className="app_boards">
