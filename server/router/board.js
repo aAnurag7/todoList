@@ -1,6 +1,7 @@
 const Board = require('../model/boardschema');
 
 async function getdata(req,res){
+    try{
     const userdata = await Board.findOne({ email: req.rootUser.email });
     if(userdata){
         req.userdata = userdata;
@@ -9,11 +10,12 @@ async function getdata(req,res){
     else{
         const board = new Board({email:req.rootUser.email});
         board.save().then(() => {
-        res.status(201).json({ message: "board added" })
+         res.status(201).json(board)
      }).catch((err) => {
-        res.status(500).json({ err: "board not created" })
+         res.status(500).json({ err: "board not created" })
      })
     }
+} catch(err){res.status(500).send('server error')}
 }
 
  async function updataboarddata(req,res){
@@ -23,12 +25,12 @@ async function getdata(req,res){
        userboard.data = req.body.data;
        console.log(userboard)
        userboard.save().then(()=>{
-       console.log('upadate succesfuly')
-       res.status(201).send(userboard);
+        console.log('upadate succesfuly')
+        res.status(201).send(userboard);
        })
     }
     else{
-       res.status(401).send('user not found')
+       res.status(404).send('user not found')
     }
     
 }
