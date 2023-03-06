@@ -18,48 +18,4 @@ boardSchema.methods.update = async function(){
     }
   }
 
-
 module.exports = Board;
-// {
-//     id:{
-//         type: String,
-//         required:true
-//     },
-//     title:{
-//         type: String,
-//         required:true
-//     },
-//     cards:[
-//         {
-//             id:{
-//                 type: String,
-//                 required:true
-//             },
-//             title:{
-//                 type: String,
-//                 required:true
-//             },
-//             date:{
-//                 type: String,
-//                 required:true
-//             },
-//             tasks:[
-//                 {
-//                     id:{
-//                         type: String,
-//                         required:true
-//                     },
-//                     completed:{
-//                         type: String,
-//                         required:true
-//                     },
-//                     title:{
-//                         type: String,
-//                         required:true
-//                     } 
-//                 }
-//             ]
-//         }
-//     ]
-    
-// }

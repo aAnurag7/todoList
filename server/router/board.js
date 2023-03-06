@@ -9,9 +9,9 @@ async function getdata(req,res){
     else{
         const board = new Board({email:req.rootUser.email});
         board.save().then(() => {
-         res.status(201).json({ message: "board added" })
+        res.status(201).json({ message: "board added" })
      }).catch((err) => {
-         res.status(500).json({ err: "board not created" })
+        res.status(500).json({ err: "board not created" })
      })
     }
 }
@@ -23,8 +23,8 @@ async function getdata(req,res){
        userboard.data = req.body.data;
        console.log(userboard)
        userboard.save().then(()=>{
-        console.log('upadate succesfuly')
-        res.status(201).send(userboard);
+       console.log('upadate succesfuly')
+       res.status(201).send(userboard);
        })
     }
     else{
