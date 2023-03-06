@@ -6,50 +6,56 @@ import '../styles/login.css'
 const Login=()=>{
     const [email, setEmail]=useState("")
     const [password, setPassword]=useState("")
-
-
-    const check = () =>{
+    const check = async (e) =>{
+        e.preventDefault();
         let values = {email: email, password: password};
-        fetch(`localhost:5000/usercheck `,{
-            method: 'post',
-            headers: 'content-application/json',
-            body: JSON.stringify(values)
-        }).then((res)=>{
-            if(res== 200){
-                console.log('login succesfuly')
-                window.location = '/board'
-            }
-            else{
-                alert(`${res.status}`)
-            }
+        values = JSON.stringify(values)
+     let res =await fetch('http://localhost:4000/login',{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials":true,
+                "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+                "Access-Control-Max-Age": 86400,
+            },
+            body: values
         })
+        let data = await res.json();
+        if(res.status === 200){
+            localStorage.setItem('token',JSON.stringify(data));
+             window.location = '/board'
+        }
+        else if(res.status === 404)alert(`${res.status} user not found`)
+        else if(res.status === 401)alert(`${res.status} wrong password`)
+        else{alert(`${res.status} server error`)}
     }
   return(
     <>
-   <div class="main">
-        <div class="navbar">
-            <div class="icon">
-                <h2 id="title"class="logo">Todo</h2>
+   <div className="main">
+        <div className="navbar">
+            <div className="icon">
+                <h2 id="title"className="logo">Todo</h2>
             </div>
         </div> 
-       <div class="content">
+       <div className="content">
             <h1>Welcome to do  <br/><span>task</span> <br/></h1>
-            <p class="par"> Todo involves creating a tool for
+            <p className="par"> Todo involves creating a tool for
                 managing tasks and increasing productivity & <br/>
                 To create a user-friendly and intuitive interface for users to
                 create, organize,<br/> and prioritize tasks in order to stay on top of their
                 workload and meet their goals.</p>
                 
-              <div class="form"> 
+              <div className="form"> 
                     <h2>Login Here</h2>
                     <input type="email" name="email" value = {email} onChange={(e=>setEmail(e.target.value))} placeholder="Enter Email Here"/>
                     <input type="password" name="" value = {password} onChange={(e=>setPassword(e.target.value))} placeholder="Enter Password Here"/>
                     <button className="btnn" onClick={check}>Login</button>
 
-                    <p class="link">Don't have an account<br/>
+                    <p className="link">Don't have an account<br/>
                     <a href="/Register">Sign up here</a></p>
-                    <div class="icons">
-                    <p class="liw">Log in with</p><a id="icongoogle" href="/board"><FcGoogle/></a>
+                    <div className="icons">
+                    <p className="liw">Log in with</p><a id="icongoogle" href="/board"><FcGoogle/></a>
                     </div>
                 </div>
         </div>
