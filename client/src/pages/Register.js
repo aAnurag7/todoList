@@ -13,7 +13,7 @@ const Register=()=>{
         e.preventDefault();
         let values = {fullname:fullname,email: email, password: password};
         values = JSON.stringify(values);
-    fetch('http://localhost:4000/create/user',{
+    fetch('http://localhost:5000/create/user',{
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -31,6 +31,7 @@ const Register=()=>{
             }
             else{
                 console.log(res.status)
+                alert(`${res.status}`)
                 // window.location = '/'
             }
         })
@@ -40,9 +41,9 @@ const Register=()=>{
     <div className='main1'>
         <div className='form1'> 
             <h2>Sign up Here</h2>
-            <input value = {fullname} onChange={(e)=>setFullname(e.target.value)} type="text" name="fullname" placeholder="Enter Name Here"/>
-            <input value = {email} onChange={(e)=>setEmail(e.target.value)} type="email" name="email" placeholder="Enter Email Here"/>
-            <input value = {password} onChange={(e)=>setPassword(e.target.value)} type="password" name="" placeholder="Enter Password Here"/>
+            <input value = {fullname} onChange={(e)=>setFullname(e.target.value)} type="text" name="fullname" placeholder="Name "/>
+            <input value = {email} onChange={(e)=>setEmail(e.target.value)} type="email" name="email" placeholder="Email "/>
+            <input value = {password} onChange={(e)=>setPassword(e.target.value)} type="password" name="" placeholder="Password"/>
             <button className="btnn" onClick={checkforregistration}>Register</button>
             <p className="link"><a href="/">back</a></p>
         </div>

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { CheckSquare, Clock, MoreHorizontal } from "react-feather";
 
@@ -73,7 +72,7 @@ function Card(props) {
             <MoreHorizontal />
             {showDropdown && (
               <Dropdown
-                class="Card_dropdown"
+                class="board_dropdown"
                 onClose={() => setShowDropdown(false)}
               >
                 <p onClick={() => props.removeCard(props.boardId, id)}>
