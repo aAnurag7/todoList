@@ -10,18 +10,18 @@ const {getdata,updataboarddata} =require('./board')
 router.post('/create/user', (req, res) => {
     const { fullname, email, password } = req.body;
     if (!fullname || !email || !password) {
-        return res.status(422).json({ err: 'Invalid credentials' })
+    return res.status(422).json({ err: 'Invalid credentials' })
     }
     try {
         User.findOne({ email: email }).then((userexist) => {
             if (userexist) {
-                return res.status(422).json({ err: "email already exist" })
+            return res.status(422).json({ err: "email already exist" })
             } 
-               const user = new User({ name:fullname, email, password });
-               user.save().then(() => {
-                 res.status(201).json({ message: "succesfully register" })
+            const user = new User({ name:fullname, email, password });
+            user.save().then(() => {
+            res.status(201).json({ message: "succesfully register" })
             }).catch((err) => {
-                res.status(500).json({ err: "failed register" })
+            res.status(500).json({ err: "failed register" })
             })
         }).catch(err => console.log(err))
     } catch (err) { 
@@ -35,7 +35,7 @@ router.post('/login', async (req, res) => {
         const { email, password } = req.body;
         if (!email || !password) {
             return res.status(400).json({ error: "Invalid credentials" })
-        }
+        } 
         const userlogin = await User.findOne({ email: email });
         if (userlogin) {
             const isMatch = await bcrypt.compare(password, userlogin.password);
@@ -46,7 +46,7 @@ router.post('/login', async (req, res) => {
                 token = await userlogin.generateAuthToken()
                 res.cookie("jwttoken",token,{
                     expires:new Date(Date.now() + 1000*60*60*24),
-                       httpOnly:true
+                    httpOnly:true
                     })
                 res.json({token}) 
             }
@@ -61,9 +61,9 @@ router.post('/login/google',(req,res)=>{
     try {
         User.findOne({ email: email }).then((userexist) => {
             if (!userexist) {
-               const user = new User({ name, email, password:"dfasjhkjhfkds" });
-               user.save().then(() => {
-                 res.status(201).json({ message: "succesfully register" })
+                const user = new User({ name, email, password:"dfasjhkjhfkds" });
+                user.save().then(() => {
+                res.status(201).json({ message: "succesfully register" })
             }).catch((err) => {
                 res.status(500).json({ err: "failed register" })
             })
@@ -72,16 +72,15 @@ router.post('/login/google',(req,res)=>{
     } catch (err) {   
         res.status(500).send('server error')
     }; 
-
+ 
 })
-router.post('/board',authenticate, async(req,res)=>{
+router.get('/board',authenticate, async(req,res)=>{
 try{
     console.log('welcome to your board')
     let userboard = await getdata(req,res)
     res.send(userboard);
 } catch(err){
-    console.log(err)
-    res.status(500).send('server error')
+    res.status(500).send('server error') 
 }
 })
 router.put('/board/:id', (req, res) =>{ 

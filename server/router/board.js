@@ -10,12 +10,12 @@ async function getdata(req,res){
     else{
         const board = new Board({email:req.rootUser.email});
         board.save().then(() => {
-         res.status(201).json(board)
+        res.status(201).json(board)
      }).catch((err) => {
-         res.status(500).json({ err: "board not created" })
+        res.status(500).json({ err: "board not created" })
      })
     }
-} catch(err){res.status(500).send('server error')}
+} catch(err){res.status(500).send('server error')} 
 }
 
  async function updataboarddata(req,res){
@@ -25,8 +25,8 @@ async function getdata(req,res){
        userboard.data = req.body.data;
        console.log(userboard)
        userboard.save().then(()=>{
-        console.log('upadate succesfuly')
-        res.status(201).send(userboard);
+       console.log('upadate succesfuly')
+       res.status(201).send(userboard);
        })
     }
     else{
