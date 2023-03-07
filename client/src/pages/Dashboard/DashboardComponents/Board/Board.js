@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { MoreHorizontal } from "react-feather";
 
@@ -18,20 +19,17 @@ function Board(props) {
           {props.board?.title}
           <span>{props.board?.cards?.length || 0}</span>
         </p>
-        <div className="board_header_title_more"
-          onClick={(event) => {
-            event.stopPropagation();
-            setShowDropdown(true);
-          }}
+        <div
+          className="board_header_title_more"
+          onClick={() => setShowDropdown(true)}
         >
           <MoreHorizontal />
           {showDropdown && (
             <Dropdown
+              class="board_dropdown"
               onClose={() => setShowDropdown(false)}
             >
-              <div className="board_dropdown">
             <p onClick={() => props.removeBoard()}>Delete Board</p>
-            </div>
             </Dropdown>
           )}
         </div>
