@@ -13,7 +13,7 @@ const corsOptions ={
  }
 
 app.use(cors(corsOptions)) 
-app.use(express.json())
+app.use(express.json()) 
 app.use(require('./router/auth'))
 app.get('/login1',(req,res)=>{
     console.log('login not avalidas')
