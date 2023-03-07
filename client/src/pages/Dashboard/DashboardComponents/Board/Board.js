@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { MoreHorizontal } from "react-feather";
 
@@ -21,8 +20,12 @@ function Board(props) {
         </p>
         <div
           className="board_header_title_more"
-          onClick={() => setShowDropdown(true)}
+          onClick={(event) => {
+            event.stopPropagation();
+            setShowDropdown(true);
+          }}
         >
+          
           <MoreHorizontal />
           {showDropdown && (
             <Dropdown

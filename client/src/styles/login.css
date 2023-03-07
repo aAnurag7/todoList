@@ -172,10 +172,10 @@ ul li a:hover{
     color: #ff7200;
     font-size: 65px
 }
-.content p{color: #fff;}
+
 .form{
-    width: 284px;
-    height: 516;
+    width: 250px;
+    height: 380px;
     background: linear-gradient(to top, rgba(0,0,0,0.8)50%,rgba(0,0,0,0.8)50%);
     position: absolute;
     top: -70px;
@@ -283,4 +283,3 @@ img{
     display: flex;
    
 }
-p.p{color: red;}

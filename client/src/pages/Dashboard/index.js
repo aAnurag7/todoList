@@ -4,35 +4,33 @@ import "./index.css";
 import Editable from "./DashboardComponents/Editabled/Editable";
 function Dashboar() {
   const [boards, setBoards] = useState(
-    JSON.parse(localStorage.getItem("prac-kanban")) || []
+    []
   );
   const [targetCard, setTargetCard] = useState({
     bid: "",
     cid: "",
   });
   fetch('http://localhost:5000/board',{
-    method: "POST",
+    method: "GET",
     headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "http://localhost:5000/board",
         "Access-Control-Allow-Credentials":true,
+        Authorization:localStorage.getItem('token'),
         "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
         "Access-Control-Max-Age": 86400,
-    },
-    body:localStorage.getItem('token')
+    }
 }).then((d)=>{
   if(d.status === 200){
     return d.json();
   }
   else if(d.status === 401){
     alert(`${d.status} Unauthorized`)
-    
   }
   else{alert(`${d.status} server error`)}
-  window.location('/')
 }).then((dat)=>{
   if(dat){
-    // setBoards(data.data);
+    setBoards(dat.data);
     console.log(dat);
   }
 }).catch((er)=>{console.log(er)})
@@ -117,7 +115,7 @@ function Dashboar() {
     setBoards(tempBoards);
   };
   useEffect(() => {
-    localStorage.setItem("prac-kanban", JSON.stringify(boards));
+    localStorage.setItem("todo", JSON.stringify(boards));
   }, [boards]);
   return (
     <div className="app">
