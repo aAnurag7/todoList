@@ -8,7 +8,7 @@ function Dashboar() {
   );
   const [targetCard, setTargetCard] = useState({
     bid: "",
-    cid: "", 
+    cid: "",
   });
   fetch('http://localhost:5000/board',{
     method: "GET",
@@ -26,12 +26,11 @@ function Dashboar() {
   }
   else if(d.status === 401){
     alert(`${d.status} Unauthorized`)
-    
   }
   else{alert(`${d.status} server error`)}
 }).then((dat)=>{
   if(dat){
-    // setBoards(dat.data);
+    setBoards(dat.data);
     console.log(dat);
   }
 }).catch((er)=>{console.log(er)})

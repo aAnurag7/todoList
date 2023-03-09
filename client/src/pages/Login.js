@@ -24,7 +24,7 @@ const Login=()=>{
         let data = await res.json();
         if(res.status === 200){
             localStorage.setItem('token',JSON.stringify(data));
-            window.location = '/board'
+             window.location = '/board'
         }
         else if(res.status === 404)alert(`${res.status} user not found`)
         else if(res.status === 401)alert(`${res.status} wrong password`)
