@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-dotenv.config({ path: "../config.env" });
-const DB =
-  "mongodb+srv://anurag:anuragchatur@cluster0.r9fqxa8.mongodb.net/?retryWrites=true&w=majority";
-const db1 = process.env.DATABSE;
+dotenv.config({ path: "./config.env" });
+const db1 = process.env.DATABASE;
 mongoose
-  .connect(DB, {
+  .connect(db1, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
     console.log("connection succesful");
-  }).catch((err)=>{console.log('connection failed')});
+  })
+  .catch((err) => {
+    console.log("connection failed");
+  });

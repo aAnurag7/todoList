@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const dotenv =require('dotenv');
+dotenv.config({path:'./config.env'});
+const key = process.env.SECRET_KEY;
 
 const boardSchema = new mongoose.Schema({
   email: {
@@ -13,7 +16,7 @@ boardSchema.methods.update = async function () {
   try {
     let token = jwt.sign(
       { _id: this._id },
-      "MDSFHSKAHFDJKBAKJSBSAJKBFJSDKFDSGSDGSDGSD"
+      key
     );
     return token;
   } catch (err) {
