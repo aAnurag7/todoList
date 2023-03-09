@@ -11,4 +11,4 @@ mongoose
   })
   .then(() => {
     console.log("connection succesful");
-  });
+  }).catch((err)=>{console.log('connection failed')});
