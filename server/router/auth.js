@@ -12,7 +12,7 @@ router.post("/create/user", (req, res) => {
   if (!fullname || !email || !password) {
     return res.status(422).json({ err: "Invalid credentials" });
   }
-  try {
+  try { 
     User.findOne({ email: email })
       .then((userexist) => {
         if (userexist) {
