@@ -12,7 +12,7 @@ router.post("/create/user", (req, res) => {
   if (!fullname || !email || !password) {
     return res.status(422).json({ err: "Invalid credentials" });
   }
-  try { 
+  try {
     User.findOne({ email: email })
       .then((userexist) => {
         if (userexist) {
@@ -33,7 +33,7 @@ router.post("/create/user", (req, res) => {
     res.status(500).send("server error");
   }
 });
- 
+
 router.post("/login", async (req, res) => {
   try {
     let token;
@@ -67,12 +67,12 @@ router.post("/login/google", (req, res) => {
   try {
     User.findOne({ email: email })
       .then((userexist) => {
-        if (!userexist) {   
+        if (!userexist) {
           const user = new User({ name, email, password: "dfasjhkjhfkds" });
-          user 
+          user
             .save()
-            .then(async() => {
-            token = await userlogin.generateAuthToken();
+            .then(async () => {
+              token = await userlogin.generateAuthToken();
               res.status(201).json({ message: "succesfully register" });
             })
             .catch((err) => {
@@ -92,14 +92,14 @@ router.get("/board", authenticate, async (req, res) => {
     res.send(userboard);
   } catch (err) {
     res.status(500).send("server error");
-  }  
-}); 
-router.put("/board", authenticate,(req, res) => {
-  try { 
+  }
+});
+router.put("/board", authenticate, (req, res) => {
+  try {
     updataboarddata(req, res);
   } catch (err) {
     res.status(500).send("server error");
-  }        
+  }
 });
-  
+
 module.exports = router;

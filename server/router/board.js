@@ -25,12 +25,12 @@ async function getdata(req, res) {
 async function updataboarddata(req, res) {
   const userboard = await Board.findOne({ email: req.rootUser.email });
   console.log(req.body);
-  console.log('\nanruag chud gya\n')
+  console.log("\nanruag chud gya\n");
   if (userboard) {
     userboard.data = req.body;
     userboard.save().then(() => {
-    console.log("upadate succesfuly");
-    res.status(201).send(userboard);
+      console.log("upadate succesfuly");
+      res.status(201).send(userboard);
     });
   } else {
     res.status(404).send("user not found");
