@@ -101,7 +101,7 @@ ul li a:hover{
     background: #ff7200;
     border: 2px solid #ff7200;
     margin-top: 13px;
-    color: #fff;
+    /* color: #fff; */
     font-size: 15px;
     border-bottom-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -195,8 +195,7 @@ img{
     font-family: sans-serif;
     text-align: center;
     color: #ff7200;
-    font-size: 22px;
-    background-color: #fff;
+    font-size: 30px;
     border-radius: 10px;
     margin: 2px;
     padding: 8px;
@@ -238,10 +237,7 @@ img{
     color: #fff;
     transition: 0.4s ease;
 }
-.btnn:hover{
-    background: #fff;
-    color: #ff7200;
-}
+
 .btnn a{
     text-decoration: none;
     color: #000;

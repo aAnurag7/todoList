@@ -10,7 +10,7 @@ const Login=()=>{
         e.preventDefault();
         let values = {email: email, password: password};
         values = JSON.stringify(values)
-     let res =await fetch('http://localhost:4000/login',{
+     let res =await fetch('http://localhost:5000/login',{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -28,6 +28,7 @@ const Login=()=>{
         }
         else if(res.status === 404)alert(`${res.status} user not found`)
         else if(res.status === 401)alert(`${res.status} wrong password`)
+        else if(res.status === 400)alert(`${res.status} Invalid credentials`)
         else{alert(`${res.status} server error`)}
     }
   return(
@@ -48,14 +49,14 @@ const Login=()=>{
                 
               <div className="form"> 
                     <h2>Login Here</h2>
-                    <input type="email" name="email" value = {email} onChange={(e=>setEmail(e.target.value))} placeholder="Enter Email Here"/>
-                    <input type="password" name="" value = {password} onChange={(e=>setPassword(e.target.value))} placeholder="Enter Password Here"/>
+                    <input type="email" name="email" value = {email} onChange={(e=>setEmail(e.target.value))} placeholder="Email "/>
+                    <input type="password" name="" value = {password} onChange={(e=>setPassword(e.target.value))} placeholder="Password"/>
                     <button className="btnn" onClick={check}>Login</button>
 
                     <p className="link">Don't have an account<br/>
                     <a href="/Register">Sign up here</a></p>
                     <div className="icons">
-                    <p className="liw">Log in with</p><a id="icongoogle" href="/board"><FcGoogle/></a>
+                    <p className="liw">Log in with</p><a id="icongoogle" href="/google"><FcGoogle/></a>
                     </div>
                 </div>
         </div>
