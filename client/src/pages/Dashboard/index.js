@@ -10,7 +10,6 @@ function Dashboar() {
     bid: "",
     cid: "", 
   });
-
   const addboardHandler = (name) => {
     const tempBoards = [...boards];
     tempBoards.push({
@@ -116,7 +115,6 @@ function Dashboar() {
   }).then((res)=>{
     if(res){
       setBoards(res.data);
-      // let id = res.id;
       console.log(res);
     }
   }).catch((er)=>{console.log("error")})

@@ -1,7 +1,6 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import '../styles/register.css'
-
 
 const Register=()=>{
   const [fullname, setFullname]=useState("")
@@ -80,4 +79,3 @@ const Register=()=>{
   )
 }
 
-export default Register;
