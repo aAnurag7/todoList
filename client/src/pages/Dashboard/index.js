@@ -91,11 +91,11 @@ function Dashboar() {
     setBoards(tempBoards);
   };
   useEffect(()=>{
-    fetch('http://localhost:9000/board',{
+    fetch('http://localhost:5000/board',{
       method: "GET",
       headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:9000/board",
+          "Access-Control-Allow-Origin": "http://localhost:5000/board",
           "Access-Control-Allow-Credentials":true,
           Authorization:localStorage.getItem('token'),
           "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
@@ -120,11 +120,11 @@ function Dashboar() {
   }).catch((er)=>{console.log("error")})
   },[])
 function savebutton(){
- fetch("http://localhost:9000/board/",{
+ fetch("http://localhost:5000/board/",{
   method: "PUT",
   headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "http://localhost:9000/board",
+      "Access-Control-Allow-Origin": "http://localhost:5000/board",
       "Access-Control-Allow-Credentials":true,
       Authorization:localStorage.getItem('token'),
       "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",

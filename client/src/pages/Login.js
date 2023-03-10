@@ -10,7 +10,7 @@ const Login=()=>{
         let values = {email: email, password: password};
         console.log(email)
         values = JSON.stringify(values)
-     let res =await fetch('http://localhost:9000/login',{
+     let res =await fetch('http://localhost:5000/login',{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -31,7 +31,6 @@ const Login=()=>{
         else if(res.status === 400)alert(`${res.status} Invalid credentials`)
         else{alert(`${res.status} server error`)}
     }
-  };
   return (
     <>
       <div className="main">

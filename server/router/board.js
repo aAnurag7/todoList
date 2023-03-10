@@ -11,10 +11,10 @@ async function getdata(req, res) {
       board
         .save()
         .then(() => {
-          res.status(201).json(board);
+          console.log('board created')
         })
         .catch((err) => {
-          res.status(500).json({ err: "board not created" });
+          console.log("board not created" );
         });
     }
   } catch (err) {
