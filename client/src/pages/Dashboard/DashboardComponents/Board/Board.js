@@ -22,7 +22,7 @@ function Board(props) {
           className="board_header_title_more"
           onClick={(event) => {
             event.stopPropagation();
-            setShowDropdown(true);
+            setShowDropdown(true)
           }}
         >
           

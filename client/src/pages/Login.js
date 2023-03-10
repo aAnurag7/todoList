@@ -1,16 +1,16 @@
-import React from 'react'
-import { useState } from 'react'
-import {FcGoogle} from 'react-icons/fc'
-import '../styles/login.css'
-
+import React from "react";
+import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import "../styles/login.css";
 const Login=()=>{
     const [email, setEmail]=useState("")
     const [password, setPassword]=useState("")
     const check = async (e) =>{
-        e.preventDefault();
+      e.preventDefault();
         let values = {email: email, password: password};
+        console.log(email)
         values = JSON.stringify(values)
-     let res =await fetch('http://localhost:5000/login',{
+     let res =await fetch('http://localhost:9000/login',{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -24,16 +24,17 @@ const Login=()=>{
         let data = await res.json();
         if(res.status === 200){
             localStorage.setItem('token',JSON.stringify(data));
-             window.location = '/board'
+            window.location = '/board'
         }
         else if(res.status === 404)alert(`${res.status} user not found`)
         else if(res.status === 401)alert(`${res.status} wrong password`)
         else if(res.status === 400)alert(`${res.status} Invalid credentials`)
         else{alert(`${res.status} server error`)}
     }
-  return(
+  };
+  return (
     <>
-   <div className="main">
+      <div className="main">
         <div className="navbar">
             <div className="icon">
                 <h2 id="title"className="logo">Todo</h2>
@@ -60,10 +61,9 @@ const Login=()=>{
                     </div>
                 </div>
         </div>
-    </div>
-    
-        </>
-  )
-}
+      </div>
+    </>
+  );
+};
 
-export default Login
+export default Login;

@@ -1,55 +1,17 @@
+
 import React from 'react'
 import { useState,useEffect } from 'react'
 import '../styles/register.css'
 
 const Register=()=>{
-const initialValues = { fullname: "", email: "", password: "" };
-        const [formValues, setFormValues] = useState(initialValues);
-        const [formErrors, setFormErrors] = useState({});
-        const [isSubmit, setIsSubmit] = useState(false);
-        const handleChange = (e) => {
-          const { name, value } = e.target;
-          setFormValues({ ...formValues, [name]: value });
-        };
-        const handleSubmit = (e) => {
-          e.preventDefault();
-          setFormErrors(validate(formValues));
-          checkforregistration();
-          setIsSubmit(true);
-        };
-        useEffect(() => {
-          console.log(formErrors);
-          if (Object.keys(formErrors).length === 0 && isSubmit) {
-            console.log(formValues);
-          }
-        }, [formErrors, formValues, isSubmit]);
-        const validate = (values) => {
-          const errors = {};
-          const regexpass=/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-          const regex = /^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
-          if (!values.fullname) {
-            errors.fullname = "Username is required!";
-          }
-          if (!values.email) {
-            errors.email = "Email is required!";
-          } else if (!regex.test(values.email)) {
-            errors.email = "This is not a valid email format!";
-          }
-          if (!values.password) {
-            errors.password = "Password is required";
-          }else if(!regexpass.test(values.password))
-          {
-            errors.password="password must contain at least eight characters, at least one number and both lower and uppercase letters and special characters!";
-          }
-         
-          return errors;
-        };
-    const checkforregistration = async (e) =>{
-        e.preventDefault();
-        // eslint-disable-next-line no-undef
+  const [fullname, setFullname]=useState("")
+  const [email, setEmail]=useState("")
+    const [password, setPassword]=useState("")
+    const checkforregistration = async () =>{
+   
         let values = {fullname:fullname,email: email, password: password};
         values = JSON.stringify(values);
-    fetch('http://localhost:5000/create/user',{
+    fetch('http://localhost:9000/create/user',{
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -66,59 +28,52 @@ const initialValues = { fullname: "", email: "", password: "" };
                 window.location = '/'
             }
             else{
-                console.log(res.status)
-                alert(`${res.status}`)
-                // window.location = '/'
+                if(res.status===409)
+                alert(`${res.status} user already exist`)
             }
         })
       }
-      return (
-        <>
-        <div className='main1'>
-            <div className='form1'>
-                <h2>Sign up Here</h2>
-          <form onSubmit={handleSubmit}>
-              <div className="field">
-                <input
-                  type="text"
-                  name="fullname"
-                  placeholder="Username"
-                  value={formValues.fullname}
-                  onChange={handleChange}
-                />
-              </div>
-              <p>{formErrors.fullname}</p>
-              <div className="field">
-                <input
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                  value={formValues.email}
-                  onChange={handleChange}
-                />
-              </div>
-              <p>{formErrors.email}</p>
-              <div className="field">
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={formValues.password}
-                  onChange={handleChange}
-                />
-              </div>
-              <p>{formErrors.password}</p>
-              <button className="btnn">Register</button>
-              <p className="link"><a href="/">back</a></p>
-          </form>
+      const validate = (e) => {
+        e.preventDefault();
+        const errors = {};
+        const regexpass=/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+        const regex = /^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
+        if (!fullname) {
+          errors.fullname = "Username is required!";
+          alert("Username is required!")
+        }
+       else if (!email) {
+          errors.email = "Email is required!";
+          alert("Email is required!")
+        } else if (!regex.test(email)) {
+          errors.email = "This is not a valid email format!";
+          alert("This is not a valid email format!")
+        }
+       else if (!password) {
+          errors.password = "Password is required";
+          alert("Password is required")
+        }else if(!regexpass.test(password))
+        {
+          errors.password="password must contain at least eight characters, at least one number and both lower and uppercase letters and special characters!";
+          alert("password must contain at least eight characters, at least one number and both lower and uppercase letters and special characters!")
+        }
+      if(!errors.fullname && !errors.email && !errors.password){
+        checkforregistration();
+      }
+      };
+  return(
+    <>
+    <div className='main1'>
+        <div className='form1'> 
+            <h2>Sign up Here</h2>
+            <input value = {fullname} onChange={(e)=>setFullname(e.target.value)} type="text" name="fullname" placeholder="Name "/>
+            <input value = {email} onChange={(e)=>setEmail(e.target.value)} type="email" name="email" placeholder="Email "/>
+            <input value = {password} onChange={(e)=>setPassword(e.target.value)} type="password" name="" placeholder="Password"/>
+            <button className="btnn" onClick={validate}>Register</button>
+            <p className="link"><a href="/">back</a></p>
+        </div>
       </div>
-      </div>
-      </>
-      );
-    }
+    </>
+  );
+};
 export default Register;
-
-
-
-
-

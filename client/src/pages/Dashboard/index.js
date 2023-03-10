@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import Board from "./DashboardComponents/Board/Board";
 import "./index.css";
 import Editable from "./DashboardComponents/Editabled/Editable";
-function Dashboar() {
+function Dashboar() { 
   const [boards, setBoards] = useState(
     []
   );
   const [targetCard, setTargetCard] = useState({
     bid: "",
-    cid: "",
+    cid: "", 
   });
   const addboardHandler = (name) => {
     const tempBoards = [...boards];
@@ -91,11 +91,11 @@ function Dashboar() {
     setBoards(tempBoards);
   };
   useEffect(()=>{
-    fetch('http://localhost:5000/board',{
+    fetch('http://localhost:9000/board',{
       method: "GET",
       headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:5000/board",
+          "Access-Control-Allow-Origin": "http://localhost:9000/board",
           "Access-Control-Allow-Credentials":true,
           Authorization:localStorage.getItem('token'),
           "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
@@ -109,23 +109,22 @@ function Dashboar() {
       alert(`${d.status} Unauthorized`)
       window.location = '/'
     }
-    else{
+    else{ 
       alert(`${d.status} server error`)
       window.location = '/'}
   }).then((res)=>{
     if(res){
       setBoards(res.data);
-      let id = res.id;
       console.log(res);
     }
   }).catch((er)=>{console.log("error")})
   },[])
 function savebutton(){
- fetch("http://localhost:5000/board/",{
+ fetch("http://localhost:9000/board/",{
   method: "PUT",
   headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "http://localhost:5000/board",
+      "Access-Control-Allow-Origin": "http://localhost:9000/board",
       "Access-Control-Allow-Credentials":true,
       Authorization:localStorage.getItem('token'),
       "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
@@ -183,23 +182,3 @@ function deletetoken(){
   );
 }
 export default Dashboar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
