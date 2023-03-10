@@ -119,7 +119,6 @@ function Dashboar() {
     }
   }).catch((er)=>{console.log("error")})
   },[])
-
 function savebutton(){
  fetch("http://localhost:9000/board/",{
   method: "PUT",
@@ -139,7 +138,6 @@ function savebutton(){
   }
 }).then((res)=>{console.log(res)}).catch((er)=>console.log('error'))
 }
-
 function deletetoken(){
   console.log('ok')
    localStorage.removeItem('token')
