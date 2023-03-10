@@ -23,8 +23,6 @@
 }
 .icon{
     width: 200px;
-   /* font-size: 300px; */
-    /* float: left; */
     height: 70px;
 }
 #home{
@@ -75,7 +73,6 @@ ul li a:hover{
 .search{
     width: 330px;
     float: right;
-    /* margin-left: 270px; */
     text-align: center;
 }
 
@@ -101,7 +98,6 @@ ul li a:hover{
     background: #ff7200;
     border: 2px solid #ff7200;
     margin-top: 13px;
-    color: #fff;
     font-size: 15px;
     border-bottom-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -195,8 +191,7 @@ img{
     font-family: sans-serif;
     text-align: center;
     color: #ff7200;
-    font-size: 22px;
-    background-color: #fff;
+    font-size: 30px;
     border-radius: 10px;
     margin: 2px;
     padding: 8px;
@@ -204,7 +199,7 @@ img{
 
 .form input{
     width: 240px;
-    height: 35px;
+    height: 35px; 
     background: transparent;
     border-bottom: 1px solid #ff7200;
     border-top: none;
@@ -238,10 +233,7 @@ img{
     color: #fff;
     transition: 0.4s ease;
 }
-.btnn:hover{
-    background: #fff;
-    color: #ff7200;
-}
+
 .btnn a{
     text-decoration: none;
     color: #000;
