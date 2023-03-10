@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { useState,useEffect } from 'react'
 import '../styles/register.css'
@@ -6,8 +7,6 @@ const Register=()=>{
   const [fullname, setFullname]=useState("")
   const [email, setEmail]=useState("")
     const [password, setPassword]=useState("")
-
-
     const checkforregistration = async () =>{
    
         let values = {fullname:fullname,email: email, password: password};
@@ -73,9 +72,8 @@ const Register=()=>{
             <button className="btnn" onClick={validate}>Register</button>
             <p className="link"><a href="/">back</a></p>
         </div>
-    </div>
-     
+      </div>
     </>
-  )
-}
-
+  );
+};
+export default Register;

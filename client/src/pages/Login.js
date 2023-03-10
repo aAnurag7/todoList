@@ -1,8 +1,7 @@
-import React from 'react'
-import { useState } from 'react'
-import {FcGoogle} from 'react-icons/fc'
-import '../styles/login.css'
-
+import React from "react";
+import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import "../styles/login.css";
 const Login=()=>{
     const [email, setEmail]=useState("")
     const [password, setPassword]=useState("")
@@ -32,9 +31,10 @@ const Login=()=>{
         else if(res.status === 400)alert(`${res.status} Invalid credentials`)
         else{alert(`${res.status} server error`)}
     }
-  return(
+  };
+  return (
     <>
-   <div className="main">
+      <div className="main">
         <div className="navbar">
             <div className="icon">
                 <h2 id="title"className="logo">Todo</h2>
@@ -61,10 +61,9 @@ const Login=()=>{
                     </div>
                 </div>
         </div>
-    </div>
-    
-        </>
-  )
-}
+      </div>
+    </>
+  );
+};
 
-export default Login
+export default Login;
