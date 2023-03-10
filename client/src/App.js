@@ -4,7 +4,6 @@ import Register from './pages/Register';
 import { Route } from 'react-router-dom';
 import {  Routes} from 'react-router-dom';
 import Dashboard from './pages/Dashboard/index'
-import Google from './pages/Google';
 const App=()=>{
   return(
 <>  
