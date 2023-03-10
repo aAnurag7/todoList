@@ -11,14 +11,13 @@
 }
 .form1{
     width: 250px;
-    height: 486px;
+    height: 380px;
     background: linear-gradient(to top, rgba(0,0,0,0.8)50%,rgba(0,0,0,0.8)50%);
     margin: auto;
     transform: translate(0%,-5%);
     border-radius: 10px;
     padding: 25px;
 }
-.form1 p{color: red;}
 .form1 h2{
     width: 220px;
     font-family: sans-serif;

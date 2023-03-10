@@ -20,12 +20,11 @@ function Board(props) {
         </p>
         <div
           className="board_header_title_more"
-          onClick={(event) => {
+          onClick={(event) =>{
             event.stopPropagation();
-            setShowDropdown(true);
+            setShowDropdown(true)
           }}
         >
-          
           <MoreHorizontal />
           {showDropdown && (
             <Dropdown
