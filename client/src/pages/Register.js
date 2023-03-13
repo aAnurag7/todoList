@@ -4,6 +4,23 @@ import { useState} from 'react'
 import '../styles/register.css'
 
 const Register=()=>{
+  if(localStorage.getItem('token')){
+    fetch("/board", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:6000/board",
+        "Access-Control-Allow-Credentials": true,
+        Authorization: localStorage.getItem("token"),
+        "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+        "Access-Control-Max-Age": 86400,
+      },
+    }).then((res)=>{
+      if(res.status === 200){
+        window.location = '/board'
+      }
+    })
+  }
   const [fullname, setFullname]=useState("")
   const [email, setEmail]=useState("")
     const [password, setPassword]=useState("")

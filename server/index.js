@@ -21,4 +21,4 @@ app.get("/login1", (req, res) => {
 });
 app.listen(6000, () => {
   console.log("listening to port 6000");
-});
+}); 
