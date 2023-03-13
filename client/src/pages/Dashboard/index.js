@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import Board from "./DashboardComponents/Board/Board";
 import "./index.css";
 import Editable from "./DashboardComponents/Editabled/Editable";
-function Dashboar() { 
-  const [boards, setBoards] = useState(
-    []
-  );
+function Dashboar() {
+  const [boards, setBoards] = useState([]);
   const [targetCard, setTargetCard] = useState({
     bid: "",
-    cid: "", 
+    cid: "",
   });
   const addboardHandler = (name) => {
     const tempBoards = [...boards];
@@ -90,67 +88,81 @@ function Dashboar() {
     tempBoards[index].cards[cardIndex] = card;
     setBoards(tempBoards);
   };
-  useEffect(()=>{
-    fetch('http://localhost:5000/board',{
+  useEffect(() => {
+    fetch("/board", {
       method: "GET",
       headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "http://localhost:5000/board",
-          "Access-Control-Allow-Credentials":true,
-          Authorization:localStorage.getItem('token'),
-          "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
-          "Access-Control-Max-Age": 86400,
-      }
-  }).then((d)=>{
-    if(d.status === 200){
-      return d.json();
-    }
-    else if(d.status === 401){
-      alert(`${d.status} Unauthorized`)
-      window.location = '/'
-    }
-    else{ 
-      alert(`${d.status} server error`)
-      window.location = '/'}
-  }).then((res)=>{
-    if(res){
-      setBoards(res.data);
-      console.log(res);
-    }
-  }).catch((er)=>{console.log("error")})
-  },[])
-function savebutton(){
- fetch("http://localhost:5000/board/",{
-  method: "PUT",
-  headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "http://localhost:5000/board",
-      "Access-Control-Allow-Credentials":true,
-      Authorization:localStorage.getItem('token'),
-      "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
-      "Access-Control-Max-Age": 86400,
-  },
-  body: JSON.stringify(boards)
-}).then((res)=>{
-  if(res.status === 200){
-    console.log('update successfuly')
-    return res.json()
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:6000/board",
+        "Access-Control-Allow-Credentials": true,
+        Authorization: localStorage.getItem("token"),
+        "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+        "Access-Control-Max-Age": 86400,
+      },
+    })
+      .then((d) => {
+        if (d.status === 200) {
+          return d.json();
+        } else if (d.status === 401) {
+          alert(`${d.status} Unauthorized`);
+          window.location = "/";
+        } else {
+          alert(`${d.status} server error`);
+          window.location = "/";
+        }
+      })
+      .then((res) => {
+        if (res) {
+          setBoards(res.data);
+          console.log(res);
+        }
+      })
+      .catch((er) => {
+        console.log("error");
+      });
+  }, []);
+  function savebutton() {
+    fetch("/board", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "http://localhost:6000/board",
+        "Access-Control-Allow-Credentials": true,
+        Authorization: localStorage.getItem("token"),
+        "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+        "Access-Control-Max-Age": 86400,
+      },
+      body: JSON.stringify(boards),
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          alert('board update succssfuly');
+          console.log("update successfuly");
+          return res.json();
+        }
+      })
+      .then((res) => {
+        alert('board update succssfuly');
+      })
+      .catch((er) => console.log("error"));
   }
-}).then((res)=>{console.log(res)}).catch((er)=>console.log('error'))
-}
-function deletetoken(){
-  console.log('ok')
-   localStorage.removeItem('token')
-   window.location= '/';
-}
+  function deletetoken() {
+    console.log("ok");
+    localStorage.removeItem("token");
+    window.location = "/";
+  }
   return (
     <div className="app">
       <div className="app_nav">
         <h1>Board</h1>
       </div>
       <div>
-      <button className="savebutton" onClick={deletetoken}>Log out</button>
-      <button className="savebutton" onClick={savebutton}>Save</button>
+        <button className="savebutton" onClick={deletetoken}>
+          Log out
+        </button>
+        <button className="savebutton" onClick={savebutton}>
+          Save
+        </button>
       </div>
       <div className="app_boards_container">
         <div className="app_boards">

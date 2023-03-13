@@ -11,7 +11,7 @@ const Register=()=>{
    
         let values = {fullname:fullname,email: email, password: password};
         values = JSON.stringify(values);
-    fetch('http://localhost:5000/create/user',{
+    fetch('/create/user',{
             method: "POST",
             headers: {
               "Content-Type": "application/json",

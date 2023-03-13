@@ -5,12 +5,28 @@ import "../styles/login.css";
 const Login=()=>{
     const [email, setEmail]=useState("")
     const [password, setPassword]=useState("")
+    if(localStorage.getItem('token')){
+      fetch("/board", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:6000/board",
+          "Access-Control-Allow-Credentials": true,
+          Authorization: localStorage.getItem("token"),
+          "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+          "Access-Control-Max-Age": 86400,
+        },
+      }).then((res)=>{
+        if(res.status === 200){
+          window.location = '/board'
+        }
+      })
+    }
     const check = async (e) =>{
       e.preventDefault();
         let values = {email: email, password: password};
-        console.log(email)
         values = JSON.stringify(values)
-     let res =await fetch('http://localhost:5000/login',{
+     let res =await fetch('/login',{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
